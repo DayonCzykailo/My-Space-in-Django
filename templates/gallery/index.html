@@ -42,10 +42,10 @@
                             {% if datas %}
                             {% for data in datas %}
                             <li class="card">
-                                <a href="{% url 'imagem' %}">
+                                <a href="{% url 'imagem' data.id %}">
                                     <img class="card__imagem" src="{{data.image.url}}" alt="foto">
                                 </a>
-                                <span class="card__tag">Estrelas</span>
+                                <span class="card__tag">{{data.category}}</span>
                                 <div class="card__info">
                                     <p class="card__titulo">{{data.title}}</p>
                                     <div class="card__texto">
