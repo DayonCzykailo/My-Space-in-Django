@@ -1,0 +1,3 @@
+echo Dont work...
+
+venv\Scripts\activate.ps1
