@@ -21,6 +21,7 @@ class Photo(models.Model):
     description = models.TextField(blank=False, null=False)
     image = models.ImageField(upload_to='images/', blank=False, null=False)
     published = models.BooleanField(default=False)
+    user = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='user')
 
     def __str__(self):
         return self.title

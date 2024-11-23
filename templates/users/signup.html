@@ -31,25 +31,38 @@
                 </div>
             </div>
         </header>
+        
+        {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+         {% endfor %}
+
         <main class="principal">
             <section class="menu-lateral">
                 <nav class="menu-lateral__navegacao">
                     <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
                     <a href="{% url 'login' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Login</a>
                     <a href="{% url 'signup' %}"><img src="{% static '/assets/ícones/1x/Novas - inativo.png' %}"> Cadastrar</a>
-                    <a href="#"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
+                    <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
                 </nav>
             </section>
             <section class="galeria" style="margin-left: 5em">
-                <form action="" method="">
+                <form action="{%url 'signup' %}" method="POST">
                     {% csrf_token %} <!-- this is a security measure to prevent CSRF attacks -->
                     <div class="row">
                         {% for field in form.visible_fields %}
-                        <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
-                            <label for="{{field.id_for_label}}" style="color:#D9D9D9; margin-bottom: 5px;"><b>{{ field.label }}</b></label>
-                            {{ field }}
-                        </div>
+                            <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                                <label for="{{field.id_for_label}}" style="color:#D9D9D9; margin-bottom: 5px;"><b>{{ field.label }}</b></label>
+                                {{ field }}
+                            </div>
+                            {% for error in field.errors %}
+                            <div class="alert alert-warning" role="alert">
+                                    {{ error }}
+                            </div>
+                            {% endfor %}
                         {% endfor %}
+                        
                         <div class="col-12 text-center">
                             <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Sign Up</button>
                         </div>

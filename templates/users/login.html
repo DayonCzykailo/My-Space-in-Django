@@ -33,6 +33,13 @@
                 </div>
             </div>
         </header>
+
+        {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+         {% endfor %}
+
         <main class="principal">
             <section class="menu-lateral">
                 <nav class="menu-lateral__navegacao">
@@ -41,12 +48,15 @@
                         Login</a>
                     <a href="{% url 'signup' %}"><img src="{% static '/assets/ícones/1x/Novas - inativo.png' %}">
                         Cadastrar</a>
-                    <a href="#"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
+                        <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
                 </nav>
             </section>
+        
             <section class="galeria" style="margin-left: 5em">
+            
                 <div style=" display: flex;  justify-content: center;">
-                    <form action="" method="">
+                    
+                    <form action="{% url 'login' %}" method="POST">
                         {% csrf_token %} <!-- this is a security measure to prevent CSRF attacks -->
                         <div class="row">
                             {% for field in form.visible_fields %}
