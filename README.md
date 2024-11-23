@@ -3,6 +3,8 @@
 This project, called My Space, is an application developed with Django 4, focused on creating an interactive interface for displaying images and their respective contexts. The main goal is to provide a pleasant user experience, allowing visitors to click on images to view them in a larger size, accompanied by relevant information. I used partially a code made by Alura.
 
 - allauth
+- django-storages
+- boto3
 # Main Functionalities
 
 - Page Rendering: We use Django to render dynamic pages, ensuring that the front-end and back-end work in harmony.
