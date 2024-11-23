@@ -45,4 +45,4 @@ def signup(request):
 def logout(request):
     auth.logout(request)
     messages.success(request, 'Deslogado com sucesso!')
-    return redirect('login')
+    return redirect('accounts/logout/')

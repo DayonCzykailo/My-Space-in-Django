@@ -47,7 +47,25 @@ INSTALLED_APPS = [
     #'users',
     'users.apps.UsersConfig', # to add the users app to the project
     'gallery.apps.GalleryConfig', # to add the gallery app to the project
+
+    # The allauth following apps are required:
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'django.contrib.sites',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# `allauth` identity to providers
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,6 +75,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'setup.urls'
@@ -72,7 +93,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
+             
         },
     },
 ]
@@ -108,6 +132,27 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'APP': {
+            'client_id': str(os.getenv('GITHUB_CLIENT_ID')),
+            'secret': str(os.getenv('GITHUB_CLIENT_SECRET')),
+            'key': ''
+        }
+    }
+}
+
+
+LOGIN_REDIRECT_URL = '/' # to redirect the user to the home page after login or login with OAuth
+LOGOUT_REDIRECT_URL = '/login' # to redirect the user to the home page after logout
+LOGIN_URL= '/login' # to redirect the user to the login page if the user is not authenticated
+
+SOCIALACCOUNT_LOGIN_ON_GET = True # to login with OAuth directly without the need to click on the confirmation button
+SOCIALACCOUNT_LOGOUT_ON_GET = True # to logout with OAuth directly without the need to click on the confirmation button
 
 
 # Internationalization
