@@ -43,8 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gallery',
-    #'gallery.apps.GalleryConfig', # to add the gallery app to the project
+    #'gallery',
+    #'users',
+    'users.apps.UsersConfig', # to add the users app to the project
+    'gallery.apps.GalleryConfig', # to add the gallery app to the project
 ]
 
 MIDDLEWARE = [
